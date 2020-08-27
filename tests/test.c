@@ -9,7 +9,7 @@ int lmao(int* a) {
 
 int lesad(int* a) {
 	if (*a && (a != *a) && (*a == 32))
-		return 5;
+		return lmao(a);
 	return 7;
 }
 

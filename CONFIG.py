@@ -36,6 +36,9 @@ branchIdentifiers = [
 callIdentifiers = ["callq", "jmpq"]
 unconditionalJumpIdentifiers = "jmp"
 returnIdentifier = "retq"
+entryPoint = 'main'
 
 UJUMP = type("UnconditionalJUMP", (object, ), {})
 URETURN = type("UnconditionalRETURN", (object, ), {})
+
+pieConfigOffset = 0x400000
