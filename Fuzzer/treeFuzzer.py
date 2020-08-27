@@ -8,9 +8,20 @@ class Fuzzer:
     
         self.project = angr.Project(binaryPath, auto_load_libs=auto_load_libs)
         self.state = self.project.factory.blank_state()
+        self.simulation_manager = self.project.factory.simulation_manager()
 
     def reachable(self, state, goal):
-        pass
+        self.simulation_manager.active = [state]
+        self.simulation_manager.explore(find=goal)
+        if self.simulation_manager.found:
+            return self.simulation_manager.found[-1]
+        return False
+
+    def evaluateBranch(self, branch):
+        branchTup = branch.name
+        if len(branchTup) == 2:
+            self.reachable(branchTup[0])
 
     def fuzz(self):
-        print(self.entryTree.children)
+        for child in self.entryTree.children:
+            self.evaluateBranch(child)
