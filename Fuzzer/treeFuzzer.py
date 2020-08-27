@@ -17,11 +17,22 @@ class Fuzzer:
             return self.simulation_manager.found[-1]
         return False
 
-    def evaluateBranch(self, branch):
+    def evaluateBranch(self, state, branch):
         branchTup = branch.name
         if len(branchTup) == 2:
-            self.reachable(branchTup[0])
+            a = self.reachable(state, branchTup[0])
+            b = self.reachable(state, branchTup[1])
+            if a and b:
+                return True
+            return a or b
+        elif type(branchTup[2]) == str:
+            return self.evaluateFunctionCall(state, branchTup)
+        elif type(branchTup[2]) == UnconditionalRETURN:
+            return self.reachable(state, branchTup[0])
+        elif type(branchTup[2]) == UnconditionalJUMP:
+            a = self.reachable(state, branchTup[0])
+            
 
     def fuzz(self):
         for child in self.entryTree.children:
-            self.evaluateBranch(child)
+            self.evaluateBranch(self.state, child)
