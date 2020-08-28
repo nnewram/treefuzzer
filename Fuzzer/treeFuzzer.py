@@ -9,13 +9,21 @@ class Fuzzer:
     
         self.project = angr.Project(binaryPath, auto_load_libs=auto_load_libs)
         self.state = self.project.factory.blank_state()
-        self.simulation_manager = self.project.factory.simulation_manager()
+        self.simulation_manager = self.project.factory.simulation_manager(self.state)
+        self.states = {}
+        
+    def reuseState(self):
+        self.simulation_manager.move('found', 'active')
 
-    def reachable(self, state, goal):
-        self.simulation_manager.drop(stash='active')
-        self.simulation_manager.active = [state]
-        self.simulation_manager.explore(find=goal)
+    def setState(self, state):
+        if self.simulation_manager.active:
+            self.simulation_manager.move('active', 'deadended')
+        self.simulation_manager.populate('active', [state])
+
+    def reachable(self, state, goal, avoid=0):
+        self.simulation_manager.explore(find=goal, avoid=avoid)
         if self.simulation_manager.found:
+            self.reuseState()
             return self.simulation_manager.found
         return False
 
@@ -23,9 +31,9 @@ class Fuzzer:
         branchTup = branch.name
         if len(branchTup) == 2:
             a = self.reachable(state.copy(), branchTup[0])
-            b = self.reachable(state.copy(), branchTup[1])
+            b = self.reachable(state.copy(), branchTup[1], nextInstruction(branchTup[1]))
             if a and b:
-                return [a, b]
+                return a
             return a or b
         elif type(branchTup[2]) == str:
             return self.evaluateFunctionCall(state.copy(), branchTup)
@@ -45,4 +53,5 @@ class Fuzzer:
     def fuzz(self):
         for child in self.entryTree.children:
             print(child)
-            print(self.evaluateBranch(self.project.factory.entry_state(), child))
+            res = self.evaluateBranch(self.state, child)
+            print(res)
