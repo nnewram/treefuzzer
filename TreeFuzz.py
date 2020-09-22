@@ -141,7 +141,7 @@ def generateTree(branches, root):
         if type(branch) == GeneratorType:
             functionNodes[prevNode.name[2]] = generateTree(branch, functionNodes[prevNode.name[2]])
         elif len(branch) == 3 and type(branch[2]) == str:
-            if branch[2] not in functionNodes:
+            if branch[2] not in functionNodes and "@plt" not in branch[2]:
                 functionNodes[branch[2]] = Node(branch[2])
             prevNode = Node(branch, parent=root)
         else:
@@ -151,8 +151,12 @@ def generateTree(branches, root):
 functionOffsets = dissasembleProgram(sys.argv[1])
 branches = findBranches(functionOffsets) # the generated flattened tree.
 
-branchTree = generateTree(branches, Node(functionOffsets[entryPoint]))
-
+try:
+    branchTree = generateTree(branches, Node(functionOffsets[entryPoint]))
+except:
+    print(functionOffsets)
+    exit(0)
+    
 if '--print' in sys.argv:
     for pre, _, node in RenderTree(branchTree):
         print(f"%s{node.name}" % pre) 
