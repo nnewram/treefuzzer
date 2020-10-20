@@ -2,7 +2,8 @@
 
 int lmao(int* a) {
 	if (*a > 100) {
-		return -1;
+		*a -= 1;
+		return a+1;
 	}
 	return 69;
 }
@@ -14,7 +15,10 @@ int lesad(int* a) {
 }
 
 int main() {
-	int a = 5;
+	int a;
+	scanf("%d\n", &a);
+	if (a > 105)
+		return a;
 	if (a > 69) {
 		a = lmao(&a);
 	}

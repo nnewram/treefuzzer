@@ -4,6 +4,7 @@ int foo(int b) {
 	}
 	return 2;
 }
+
 int main() {
 	int a = 4;
 	if (a > 2) {
