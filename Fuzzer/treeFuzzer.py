@@ -14,7 +14,11 @@ class Fuzzer:
         
         self.reached = []
         self.unreachable = []
-        self.visitedFunctionsStates = {} # function : state, when recursion, if state1 != state2, high chance stop recursive, else not stop, dont try
+        self.visitedFunctionsStates = {}
+        # function : state, when recursion, if state1 != state2
+        # if any(state == maybe for maybe in self.visitedFunctionStates) then recursion will never stop
+        # this is very innefficient, maybe use a hashmap? Externals, syscalls etc might change? Consider sys_timeofdate?
+        # replace native allocator?
 
     def reuseState(self):
         self.simulation_manager.move('found', 'active')
@@ -45,6 +49,7 @@ class Fuzzer:
         if len(branchTup) == 1:
             a = self.reachable(state.copy(), branchTup[0])
             return a
+
         if len(branchTup) == 2:
             a = self.reachable(state.copy(), branchTup[0])
             b = self.reachable(state.copy(), branchTup[1])
@@ -93,6 +98,5 @@ class Fuzzer:
             res = self.evaluateBranch(self.state, child)
             print("Res:", res)
 
-        print("bruh!")
         print("reached:", self.reached)
         print("unreachable:", self.unreachable)

@@ -1,0 +1,94 @@
+treeFuzzer:
+
+testA:
+	________________________________________________________
+	Executed in   40.99 secs   fish           external 
+	usr time   51.45 secs    0.00 millis   51.45 secs 
+	sys time   15.24 secs    2.22 millis   15.24 secs 
+
+	________________________________________________________
+	Executed in   39.77 secs   fish           external 
+	usr time   49.96 secs    1.78 millis   49.95 secs 
+	sys time   15.17 secs    0.43 millis   15.17 secs 
+
+snitt:
+	40.38 sekunder
+
+testB:
+	________________________________________________________
+	Executed in    3.07 secs   fish           external 
+	usr time    3.17 secs    0.11 millis    3.17 secs 
+	sys time    0.46 secs    3.37 millis    0.45 secs 
+
+	________________________________________________________
+	Executed in    2.98 secs   fish           external 
+	usr time    3.01 secs    1.80 millis    3.01 secs 
+	sys time    0.54 secs    0.43 millis    0.54 secs 
+	________________________________________________________
+	Executed in    2.98 secs   fish           external 
+	usr time    3.02 secs    0.00 millis    3.02 secs 
+	sys time    0.52 secs    2.28 millis    0.52 secs 
+
+snitt:
+	3.1 sekunder
+
+testC:
+	över 1000 sekunder
+	över 1000 sekunder
+
+	snitt DNF
+
+testD:
+	________________________________________________________
+	Executed in   32.42 secs   fish           external 
+	usr time   34.80 secs    0.00 millis   34.80 secs 
+	sys time    4.46 secs    2.21 millis    4.45 secs 
+
+	________________________________________________________
+	Executed in   32.81 secs   fish           external 
+	usr time   35.06 secs    0.00 millis   35.06 secs 
+	sys time    4.76 secs    2.42 millis    4.76 secs
+
+	________________________________________________________
+	Executed in   33.70 secs   fish           external 
+	usr time   35.52 secs    0.00 millis   35.52 secs 
+	sys time    4.74 secs    2.20 millis    4.74 secs
+
+testE:
+	________________________________________________________
+	Executed in    9.82 secs   fish           external 
+	usr time    9.94 secs    1.75 millis    9.94 secs 
+	sys time    0.99 secs    0.42 millis    0.99 secs 
+
+	________________________________________________________
+	Executed in    9.97 secs   fish           external 
+	usr time   10.07 secs    0.00 millis   10.07 secs 
+	sys time    1.00 secs    2.16 millis    0.99 secs 
+
+	________________________________________________________
+	Executed in   10.07 secs   fish           external 
+	usr time   10.20 secs    0.00 millis   10.20 secs 
+	sys time    0.92 secs    2.20 millis    0.92 secs
+
+
+AFL:
+
+testA:
+	3 vägar 40 sekunder
+	4 vägar 2 minuter, 30 sekunder  - 800 k körningar
+	DNF
+
+testB:
+	2 vägar 31 sekunder
+
+testC:
+	1 minut 32 sekunder
+
+testD:
+	18 vägar 13 sekunder
+	22 vägar 19 sekunder
+	24 vägar 30 sekunder
+	29 vägar 45 sekunder
+
+testE:
+	4 vägar 7 sekunder

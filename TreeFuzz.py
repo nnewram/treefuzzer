@@ -163,6 +163,8 @@ if '--print' in sys.argv:
     for func in functionNodes:
         for pre, _, node in RenderTree(functionNodes[func]):
             print(f"%s{node.name}" % pre)
+    
+    exit()
 
 '''
     Next step is to create a "roadmap" for the fuzzer.
