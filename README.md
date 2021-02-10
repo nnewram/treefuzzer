@@ -15,5 +15,5 @@ pip3 install angr anytree
 
 ## Usage
 ```
-python3 TreeFuzzer.py path/to/file
+python3 TreeFuzz.py path/to/file
 ```
